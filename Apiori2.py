@@ -9,16 +9,19 @@
 #file = open('ACMAuthors.csv')
 #database = csv.reader(file)
 
-database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([1,2,4]),
+database = [frozenset([1,2,3]), frozenset([2,3]), frozenset([1,2,4]),
             frozenset([3, 4]), frozenset([1,2,5]), frozenset([1,2,4,5]),
-            frozenset([1,2]), frozenset([2,3,4]), frozenset([1,4,5]))
+            frozenset([1,2]), frozenset([2,3,4]), frozenset([1,4,5])]
 
+#this function creates the powerset of the database
+#4:03 prints a list of all single items in the dataset
 def ItemsfromDatabase(database):
     power_set = []
     for row in database:
         for column in row:
             if column not in power_set:
                 power_set.append(column)
+    power_set = set(power_set)
 #    power_set.sort()
     return power_set
 
