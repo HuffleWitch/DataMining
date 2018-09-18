@@ -57,8 +57,11 @@ def support(itemset, database):
 def confidence(precedent, antecedent, database):
     ante_support = support(antecedent, database)
     pre_support = support(precedent, database)
-    confidence = (ante_support/pre_support)
-    return confidence
+    if pre_support > 0:
+        confidence = (ante_support/pre_support)
+        return confidence
+    else:
+        return 0
 
 
 #Finds all itemsets in database that have at least minSupport.
