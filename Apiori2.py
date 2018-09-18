@@ -31,12 +31,10 @@ def ItemsfromDatabase(database):
     for item in working_set:
         for thing in working_set:
             if item != thing:
-                if [item, thing] not in temp_set:
+                if [item, thing] and [thing, item] not in temp_set:
                     temp_set.append([item, thing])
     power_set = working_set.extend(temp_set)
     return working_set
-            if column not in power_set:
-                power_set.append(column)
 #    power_set.sort()
     return power_setd
 
