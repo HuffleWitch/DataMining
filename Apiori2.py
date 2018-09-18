@@ -3,47 +3,61 @@
 #Note: This implementation is not very efficient. 
 # Hint: @lru_cache(maxsize=None) is likely to be a 
 #   favourable decoration for some functions.
+import csv
 
 
-#import csv
-#file = open('ACMAuthors.csv')
-#database = csv.reader(file)
+# create an array of all authors in the csv file
+def create_array(filename):
+    # create array and counters to aid looping
+    authors = []
+    author_count = 0
+    row_count = 0
+
+    # open csv file and read
+    f = open(filename)
+    csv_f = csv.reader(f)
+
+    # loop through the file
+    for row in csv_f:
+        for column in row:
+            # check if the author is new
+            if column not in authors:
+                # if new, add to authors array
+                authors.append(column)
+                author_count = author_count + 1
+            row_count = row_count + 1
+    return authors
+
+
+# database = str(create_array('testAuthors.csv'))
+# print(database)
 
 database = [[1,2,3], [2,3], [1,2,4],
             [3, 4], [1,2,5], [1,2,4,5],
             [1,2], [2,3,4], [1,4,5]]
 
 #this function creates the powerset of the database
-
-# computes the power set of items in database
-
-#this function creates the powerset of the database
-#4:03 prints a list of all single items in the dataset
-
 def ItemsfromDatabase(database):
     power_set = []
-    working_set = []
     for row in database:
         for column in row:
-            if column not in working_set:
-                working_set.append(column)
+            if column not in power_set:
+                power_set.append(column)
     temp_set = []
-    for item in working_set:
-        for thing in working_set:
+    for item in power_set:
+        for thing in power_set:
             if item != thing:
                 if [item, thing] and [thing, item] not in temp_set:
                     temp_set.append([item, thing])
-    power_set = working_set.extend(temp_set)
-    return working_set
-#    power_set.sort()
-    return power_setd
+    power_set.extend(temp_set)
+    return power_set
 
 p1 = ItemsfromDatabase(database)
-print ("power set")
-print(p1)
+# print ("power set")
+# print(p1)
 
     
-'''
+
 #Computes the support of the given itemset in the given database., used in a loop to get the support of all
 # items in the powerset against the 
 #itemset: A set of items
@@ -52,18 +66,16 @@ print(p1)
 def support(itemset, database):
     len_set = len(database)
     count = 0
-    for row in database:
-        for column in row:
-            if column == itemset:
-                count = count + 1
-        return count
+    for item in database:
+        if item == itemset:
+            count = count + 1
+            print(count)
     support = (count/len_set)
     print ("The support is:" + str (support))
     return support
-
+print(support(1, database))
     
-    
-
+'''
 #Computes the confidence of a given rule.
 #The rule takes the form precedent --> antecedent
 #precedent: A set of items
@@ -76,7 +88,7 @@ def confidence(precedent, antecedent, database):
     pre_support = support(precedent, database)
     confidence = (ante_support/pre_support)
     return confidence
-
+'''
 
 #Finds all itemsets in database that have at least minSupport.
 #database: A list of sets of items.
@@ -97,7 +109,10 @@ def findFrequentItemsets(database, minSupport):
         FS = FS + H
     print ("FS")
     return FS
-                
+
+# print(findFrequentItemsets(database, .5))
+
+'''
 #Given a set of frequently occuring Itemsets, returns
 # a list of pairs of the form (precedent, antecedent)
 # such that for every returned pair, the rule 
