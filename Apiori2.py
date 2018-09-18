@@ -15,6 +15,11 @@ database = [[1,2,3], [2,3], [1,2,4],
 
 #this function creates the powerset of the database
 
+# computes the power set of items in database
+
+#this function creates the powerset of the database
+#4:03 prints a list of all single items in the dataset
+
 def ItemsfromDatabase(database):
     power_set = []
     working_set = []
@@ -30,6 +35,10 @@ def ItemsfromDatabase(database):
                     temp_set.append([item, thing])
     power_set = working_set.extend(temp_set)
     return working_set
+            if column not in power_set:
+                power_set.append(column)
+#    power_set.sort()
+    return power_setd
 
 p1 = ItemsfromDatabase(database)
 print ("power set")
@@ -49,8 +58,8 @@ def support(itemset, database):
         for column in row:
             if column == itemset:
                 count = count + 1
-    return count
-    support = (freq_set/count)
+        return count
+    support = (count/len_set)
     print ("The support is:" + str (support))
     return support
 
@@ -67,11 +76,8 @@ def support(itemset, database):
 def confidence(precedent, antecedent, database):
     ante_support = support(antecedent, database)
     pre_support = support(precedent, database)
-    if pre_support > 0:
-        confidence = (ante_support/pre_support)
-        return confidence
-    else:
-        return 0
+    confidence = (ante_support/pre_support)
+    return confidence
 
 
 #Finds all itemsets in database that have at least minSupport.
