@@ -14,7 +14,12 @@ database = [frozenset([1,2,3]), frozenset([2,3]), frozenset([1,2,4]),
             frozenset([1,2]), frozenset([2,3,4]), frozenset([1,4,5])]
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # computes the power set of items in database
+=======
+#this function creates the powerset of the database
+#4:03 prints a list of all single items in the dataset
+>>>>>>> f85a73041f412082603183b5bfa82fc4ada1a4a2
 =======
 #this function creates the powerset of the database
 #4:03 prints a list of all single items in the dataset
