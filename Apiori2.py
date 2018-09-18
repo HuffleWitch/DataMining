@@ -9,38 +9,36 @@
 #file = open('ACMAuthors.csv')
 #database = csv.reader(file)
 
-database = [frozenset([1,2,3]), frozenset([2,3]), frozenset([1,2,4]),
-            frozenset([3, 4]), frozenset([1,2,5]), frozenset([1,2,4,5]),
-            frozenset([1,2]), frozenset([2,3,4]), frozenset([1,4,5])]
+database = [[1,2,3], [2,3], [1,2,4],
+            [3, 4], [1,2,5], [1,2,4,5],
+            [1,2], [2,3,4], [1,4,5]]
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-# computes the power set of items in database
-=======
 #this function creates the powerset of the database
-#4:03 prints a list of all single items in the dataset
->>>>>>> f85a73041f412082603183b5bfa82fc4ada1a4a2
-=======
-#this function creates the powerset of the database
-#4:03 prints a list of all single items in the dataset
->>>>>>> f85a73041f412082603183b5bfa82fc4ada1a4a2
+
 def ItemsfromDatabase(database):
     power_set = []
+    working_set = []
     for row in database:
         for column in row:
-            if column not in power_set:
-                power_set.append(column)
-    power_set = set(power_set)
-#    power_set.sort()
-    return power_set
+            if column not in working_set:
+                working_set.append(column)
+    temp_set = []
+    for item in working_set:
+        for thing in working_set:
+            if item != thing:
+                if [item, thing] not in temp_set:
+                    temp_set.append([item, thing])
+    power_set = working_set.extend(temp_set)
+    return working_set
 
 p1 = ItemsfromDatabase(database)
-print ("ItemsfromDatabase")
+print ("power set")
 print(p1)
 
     
-
-#Computes the support of the given itemset in the given database.
+'''
+#Computes the support of the given itemset in the given database., used in a loop to get the support of all
+# items in the powerset against the 
 #itemset: A set of items
 #database: A list of sets of items
 #return: The number of sets in the database which itemset is a subset of.
@@ -138,3 +136,4 @@ print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2
 for r in findRules(out, database, 0.4):
     print ("rules")
     print(str(r[0])+"  ===>   "+str(r[1]))
+'''
