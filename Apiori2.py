@@ -13,6 +13,20 @@ database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([1,2,4]),
             frozenset([3, 4]), frozenset([1,2,5]), frozenset([1,2,4,5]),
             frozenset([1,2]), frozenset([2,3,4]), frozenset([1,4,5]))
 
+<<<<<<< HEAD
+=======
+# <<<<<<< HEAD
+# <<<<<<< HEAD
+# computes the power set of items in database
+# =======
+#this function creates the powerset of the database
+#4:03 prints a list of all single items in the dataset
+# >>>>>>> f85a73041f412082603183b5bfa82fc4ada1a4a2
+# =======
+#this function creates the powerset of the database
+#4:03 prints a list of all single items in the dataset
+# >>>>>>> f85a73041f412082603183b5bfa82fc4ada1a4a2
+>>>>>>> 2a55392b466dedddd6ec468885e09a6f6d347632
 def ItemsfromDatabase(database):
     power_set = []
     for row in database:
@@ -39,8 +53,8 @@ def support(itemset, database):
         for column in row:
             if column == itemset:
                 count = count + 1
-    return count
-    support = (freq_set/count)
+        return count
+    support = (count/len_set)
     print ("The support is:" + str (support))
     return support
 
