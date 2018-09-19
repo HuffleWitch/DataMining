@@ -1,4 +1,4 @@
-git#Template for Assignment 1.
+#Template for Assignment 1.
 #Author: Skylar Lingenfelser
 #Note: This implementation is not very efficient. 
 # Hint: @lru_cache(maxsize=None) is likely to be a 
@@ -15,7 +15,7 @@ def create_array(filename):
 
     # open csv file and read
     f = open(filename)
-    csv_f = csv.reader(f)
+    csv_f = csv.reader(f, delimiter ='\t')
 
     # loop through the file
     for row in csv_f:
@@ -34,7 +34,7 @@ def itemsets(filename):
     itemsets = []
     # open the file and read
     f = open(filename)
-    csv_f = csv.reader(f)
+    csv_f = csv.reader(f, delimiter='\t')
 
     # loop through the file
     for row in csv_f:
