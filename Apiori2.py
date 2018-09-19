@@ -1,10 +1,10 @@
-git#Template for Assignment 1.
+#Template for Assignment 1.
 #Author: Skylar Lingenfelser
 #Note: This implementation is not very efficient. 
 # Hint: @lru_cache(maxsize=None) is likely to be a 
 #   favourable decoration for some functions.
 import csv
-database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
+# database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
 
 # create an array of all authors in the csv file
 def create_array(filename):
@@ -49,11 +49,13 @@ def itemsets(filename):
 #             [3, 4], [1,2,5], [1,2,4,5],
 #             [1,2], [2,3,4], [1,4,5], [1,4,5], [1,4,5], [1,4,5]]
 
-# database = [[6], [6],[6], [8], [6,8], [6,8], [6,8], [10, 12, 14], [5,7], [5,7], [5,7], [7,9], [9, 6], [12, 14], [12, 11]]
+database = [[6], [6],[6],[6],[6],[6],[6],[6], [8], [6,8], [6,8], [6,8], [10, 12, 14], 
+    [5,7], [5,7], [5,7], [7,9], [9, 6], [12, 14], [12, 11, 13], [12, 11, 13],[12, 11, 13], 
+    [12, 11, 13], [12, 11, 13], [12, 11, 13], [12, 11, 13], [12, 11, 13]]
 
-database = itemsets('tinyAuthors.csv')
-print("Item Sets: \n ")
-print(database)
+# database = itemsets('tinyAuthors.csv')
+# print("Item Sets: \n ")
+# print(database)
 
 #this function creates the powerset of the database
 def ItemsfromDatabase(database):
@@ -71,17 +73,19 @@ def ItemsfromDatabase(database):
     power_set.extend(temp_set)
     return power_set
 
-p1 = ItemsfromDatabase(database)
-print("Power Set: \n ")
-print(p1)
+# p1 = ItemsfromDatabase(database)
+# print("Power Set: \n ")
+# print(p1)
 
     
 
-#Computes the support of the given itemset in the given database., used in a loop to get the support of all
+#Computes the support of the given itemset in the given database., 
+# used in a loop to get the support of all
 # items in the powerset against the 
 #itemset: A set of items
 #database: A list of sets of items
 #return: The number of sets in the database which itemset is a subset of.
+#support works!!
 def support(itemset, database):
     len_set = len(database)
     count = 0
@@ -91,7 +95,7 @@ def support(itemset, database):
     support = (count/len_set)
     return support
 
-s1 = support(p1, database)
+s1 = support([6,8], database)
 print("Support: \n ")
 print(s1)
     
@@ -102,13 +106,14 @@ print(s1)
 #antecedent: A set of items that is a superset of precedent
 #database: a list of sets of items.
 #return: The confidence in precedent --> antecedent.
-
+# 
 def confidence(precedent, antecedent, database):
     ante_support = support(antecedent, database)
     pre_support = support(precedent, database)
     confidence = (ante_support/pre_support)
     return confidence
-
+print("confidence")
+print(confidence([6], [6,8], database))
 
 #Finds all itemsets in database that have at least minSupport.
 #database: A list of sets of items.
@@ -127,7 +132,8 @@ def findFrequentItemsets(database, minSupport):
     return frequent_sets
 
 print("Frequent Sets: \n ")
-print(findFrequentItemsets(database, .2))
+freq_sets= findFrequentItemsets(database, .2)
+print(freq_sets)
 
 
 #Given a set of frequently occuring Itemsets, returns
@@ -149,7 +155,9 @@ def findRules(frequentItemsets, database, minConfidence):
             if confidence(s, setFreq.append(t), database) >= minConfidence:
                 rules.append((s,t))
     return rules
-            
+
+rules = findRules(freq_sets, database, .2)
+print(rules)
 '''
 
 #Produces a visualization of frequent itemsets.
@@ -163,7 +171,8 @@ def visualizeRules(rules):
 '''
 #Here's a simple test case:
 
-database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
+database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), 
+    frozenset([1,2]), frozenset([1,5]))
 out = findFrequentItemsets(database, 2)
 print ("Freq Items")
 print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2,3}.
