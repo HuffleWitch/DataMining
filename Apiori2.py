@@ -6,6 +6,7 @@
 import csv
 # database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
 
+
 # create an array of all authors in the csv file
 def create_array(filename):
     # create array and counters to aid looping
@@ -15,7 +16,7 @@ def create_array(filename):
 
     # open csv file and read
     f = open(filename)
-    csv_f = csv.reader(f)
+    csv_f = csv.reader(f, delimiter ='\t')
 
     # loop through the file
     for row in csv_f:
@@ -34,7 +35,7 @@ def itemsets(filename):
     itemsets = []
     # open the file and read
     f = open(filename)
-    csv_f = csv.reader(f)
+    csv_f = csv.reader(f, delimiter='\t')
 
     # loop through the file
     for row in csv_f:
@@ -99,7 +100,7 @@ s1 = support([6,8], database)
 print("Support: \n ")
 print(s1)
     
-
+'''
 #Computes the confidence of a given rule.
 #The rule takes the form precedent --> antecedent
 #precedent: A set of items
@@ -112,8 +113,12 @@ def confidence(precedent, antecedent, database):
     pre_support = support(precedent, database)
     confidence = (ante_support/pre_support)
     return confidence
+<<<<<<< HEAD
 print("confidence")
 print(confidence([6], [6,8], database))
+=======
+'''
+
 
 #Finds all itemsets in database that have at least minSupport.
 #database: A list of sets of items.
@@ -135,7 +140,7 @@ print("Frequent Sets: \n ")
 freq_sets= findFrequentItemsets(database, .2)
 print(freq_sets)
 
-
+'''
 #Given a set of frequently occuring Itemsets, returns
 # a list of pairs of the form (precedent, antecedent)
 # such that for every returned pair, the rule 
@@ -155,6 +160,7 @@ def findRules(frequentItemsets, database, minConfidence):
             if confidence(s, setFreq.append(t), database) >= minConfidence:
                 rules.append((s,t))
     return rules
+<<<<<<< HEAD
 
 rules = findRules(freq_sets, database, .2)
 print(rules)
@@ -168,11 +174,15 @@ def visualizeItemsets(frequentItemsets):
 def visualizeRules(rules):
     return 0
 
-'''
+
 #Here's a simple test case:
+
 
 database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), 
     frozenset([1,2]), frozenset([1,5]))
+
+#database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
+
 out = findFrequentItemsets(database, 2)
 print ("Freq Items")
 print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2,3}.
@@ -181,3 +191,4 @@ print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2
 for r in findRules(out, database, 0.4):
     print ("rules")
     print(str(r[0])+"  ===>   "+str(r[1]))
+'''
