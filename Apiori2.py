@@ -32,9 +32,11 @@ def create_array(filename):
 # database = str(create_array('testAuthors.csv'))
 # print(database)
 
-database = [[1,2,3], [2,3], [1,2,4],
-            [3, 4], [1,2,5], [1,2,4,5],
-            [1,2], [2,3,4], [1,4,5]]
+# database = [[1], [1], [1], [1], [1], [1,2,3], [2,3], [2,3], [2,3], [2,3], [2,3], [1,2,4],
+#             [3, 4], [1,2,5], [1,2,4,5],
+#             [1,2], [2,3,4], [1,4,5], [1,4,5], [1,4,5], [1,4,5]]
+
+database = [[6], [6],[6], [8], [6,8], [6,8], [6,8], [10, 12, 14], [5,7], [5,7], [5,7], [7,9], [9, 6], [12, 14], [12, 11]]
 
 #this function creates the powerset of the database
 def ItemsfromDatabase(database):
@@ -69,11 +71,8 @@ def support(itemset, database):
     for item in database:
         if item == itemset:
             count = count + 1
-            print(count)
     support = (count/len_set)
-    print ("The support is:" + str (support))
     return support
-print(support(1, database))
     
 '''
 #Computes the confidence of a given rule.
@@ -96,21 +95,18 @@ def confidence(precedent, antecedent, database):
 #return: A list of sets of items, such that 
 #   s in return --> support(s,database) >= minSupport.
 def findFrequentItemsets(database, minSupport):
-    FS = []
-    for row in database:
-        FS.append([row])
-    cands = FS
-    while len(cands) > 0:
+    cands = database
+    for x in range(len(cands)+1):
         H = []
         for c in cands:
-            if support(c, database) >= minSupport:
+            if (c not in H and support(c, database) >= minSupport):
                 H.append(c)
-        cands = []
-        FS = FS + H
-    print ("FS")
-    return FS
+    frequent_sets = H
+    frequent_sets.sort()
+    return frequent_sets
 
-# print(findFrequentItemsets(database, .5))
+print("frequent_sets")
+print(findFrequentItemsets(database, .2))
 
 '''
 #Given a set of frequently occuring Itemsets, returns
