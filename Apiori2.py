@@ -100,7 +100,7 @@ s1 = support([6,8], database)
 print("Support: \n ")
 print(s1)
     
-'''
+
 #Computes the confidence of a given rule.
 #The rule takes the form precedent --> antecedent
 #precedent: A set of items
@@ -113,11 +113,10 @@ def confidence(precedent, antecedent, database):
     pre_support = support(precedent, database)
     confidence = (ante_support/pre_support)
     return confidence
-<<<<<<< HEAD
+
 print("confidence")
 print(confidence([6], [6,8], database))
-=======
-'''
+
 
 
 #Finds all itemsets in database that have at least minSupport.
@@ -160,7 +159,7 @@ def findRules(frequentItemsets, database, minConfidence):
             if confidence(s, setFreq.append(t), database) >= minConfidence:
                 rules.append((s,t))
     return rules
-<<<<<<< HEAD
+
 
 rules = findRules(freq_sets, database, .2)
 print(rules)
