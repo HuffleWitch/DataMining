@@ -28,6 +28,19 @@ def create_array(filename):
             row_count = row_count + 1
     return authors
 
+# create an array of itemsets from the database
+def itemsets(filename):
+    # create array
+    itemsets = []
+    # open the file and read
+    f = open(filename)
+    csv_f = csv.reader(f)
+
+    # loop through the file
+    for row in csv_f:
+        if row not in itemsets:
+            itemsets.append([row])
+    return itemsets
 
 # database = str(create_array('testAuthors.csv'))
 # print(database)
@@ -37,6 +50,8 @@ def create_array(filename):
 #             [1,2], [2,3,4], [1,4,5], [1,4,5], [1,4,5], [1,4,5]]
 
 # database = [[6], [6],[6], [8], [6,8], [6,8], [6,8], [10, 12, 14], [5,7], [5,7], [5,7], [7,9], [9, 6], [12, 14], [12, 11]]
+
+database = itemsets('tinyAuthors.csv')
 
 #this function creates the powerset of the database
 def ItemsfromDatabase(database):
