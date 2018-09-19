@@ -1,10 +1,10 @@
-git#Template for Assignment 1.
+#Template for Assignment 1.
 #Author: Skylar Lingenfelser
 #Note: This implementation is not very efficient. 
 # Hint: @lru_cache(maxsize=None) is likely to be a 
 #   favourable decoration for some functions.
 import csv
-database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
+
 
 # create an array of all authors in the csv file
 def create_array(filename):
@@ -95,7 +95,7 @@ s1 = support(p1, database)
 print("Support: \n ")
 print(s1)
     
-
+'''
 #Computes the confidence of a given rule.
 #The rule takes the form precedent --> antecedent
 #precedent: A set of items
@@ -108,7 +108,7 @@ def confidence(precedent, antecedent, database):
     pre_support = support(precedent, database)
     confidence = (ante_support/pre_support)
     return confidence
-
+'''
 
 #Finds all itemsets in database that have at least minSupport.
 #database: A list of sets of items.
@@ -129,7 +129,7 @@ def findFrequentItemsets(database, minSupport):
 print("Frequent Sets: \n ")
 print(findFrequentItemsets(database, .2))
 
-
+'''
 #Given a set of frequently occuring Itemsets, returns
 # a list of pairs of the form (precedent, antecedent)
 # such that for every returned pair, the rule 
@@ -150,7 +150,7 @@ def findRules(frequentItemsets, database, minConfidence):
                 rules.append((s,t))
     return rules
             
-'''
+        
 
 #Produces a visualization of frequent itemsets.
 def visualizeItemsets(frequentItemsets):
@@ -160,10 +160,10 @@ def visualizeItemsets(frequentItemsets):
 def visualizeRules(rules):
     return 0
 
-'''
+
 #Here's a simple test case:
 
-database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
+#database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
 out = findFrequentItemsets(database, 2)
 print ("Freq Items")
 print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2,3}.
@@ -172,3 +172,4 @@ print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2
 for r in findRules(out, database, 0.4):
     print ("rules")
     print(str(r[0])+"  ===>   "+str(r[1]))
+'''
