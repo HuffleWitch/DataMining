@@ -43,16 +43,22 @@ def itemsets(filename):
             itemsets.append([row])
     return itemsets
 
-# database = str(create_array('testAuthors.csv'))
+# database = str(create_array('tinyAuthors.csv'))
 # print(database)
 
 # database = [[1], [1], [1], [1], [1], [1,2,3], [2,3], [2,3], [2,3], [2,3], [2,3], [1,2,4],
 #             [3, 4], [1,2,5], [1,2,4,5],
 #             [1,2], [2,3,4], [1,4,5], [1,4,5], [1,4,5], [1,4,5]]
 
-database = [[6], [6],[6],[6],[6],[6],[6],[6], [8], [6,8], [6,8], [6,8], [10, 12, 14], 
+database = [[6], [6],[6],[6],[6],[6],[6],[6], [8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [10, 12, 14], 
     [5,7], [5,7], [5,7], [7,9], [9, 6], [12, 14], [12, 11, 13], [12, 11, 13],[12, 11, 13], 
-    [12, 11, 13], [12, 11, 13], [12, 11, 13], [12, 11, 13], [12, 11, 13]]
+    [12, 11, 13], [12, 11, 13], [12, 11, 13], [12, 11, 13], [12, 11, 13], [1], [1], [1], 
+    [1], [1], [1,2,3], [2,3], [2,3], [2,3], [2,3], [2,3], [1,2,4],[6,8], [6,8], [6,8], [6,8],
+    [3, 4], [1,2,5], [1,2,4,5],[1,2], [2,3,4], [1,4,5], [1,4,5], [1,4,5], [1,4,5], [1,4,5], [1,4,5]
+    ,[1,4,5], [1,4,5], [1,4,5], [1,4,5], [1,4,5], [1,4,5],[6],[6],[6],[6],[6],[6], [2,3], [2,3], [2,3], [2,3],
+    [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8]
+    , [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8]
+    , [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8], [6,8]]
 
 # database = itemsets('tinyAuthors.csv')
 # print("Item Sets: \n ")
@@ -89,16 +95,24 @@ def ItemsfromDatabase(database):
 #support works!!
 def support(itemset, database):
     len_set = len(database)
+    itemset_len = len(itemset)
     count = 0
     for item in database:
-        if item == itemset:
+        for element in itemset:
+            item_check = 1
+            if element not in item:
+                break
+            else:
+                item_check += 1
+
+        if item_check == itemset_len:     
             count = count + 1
     support = (count/len_set)
     return support
 
-s1 = support([6,8], database)
-print("Support: \n ")
-print(s1)
+# s1 = support([6,8], database)
+# print("Support: \n ")
+# print(s1)
     
 
 #Computes the confidence of a given rule.
@@ -114,8 +128,8 @@ def confidence(precedent, antecedent, database):
     confidence = (ante_support/pre_support)
     return confidence
 
-print("confidence")
-print(confidence([6], [6,8], database))
+# print("confidence")
+# print(confidence([6], [6,8], database))
 
 
 
@@ -136,10 +150,10 @@ def findFrequentItemsets(database, minSupport):
     return frequent_sets
 
 print("Frequent Sets: \n ")
-freq_sets= findFrequentItemsets(database, .2)
+freq_sets= findFrequentItemsets(database, .1)
 print(freq_sets)
 
-'''
+
 #Given a set of frequently occuring Itemsets, returns
 # a list of pairs of the form (precedent, antecedent)
 # such that for every returned pair, the rule 
@@ -152,18 +166,16 @@ print(freq_sets)
 
 def findRules(frequentItemsets, database, minConfidence):
     rules = []
-    setFreq = frequentItemsets.copy()
     for s in frequentItemsets:
-        setFreq.remove(s)
-        for t in setFreq:
-            if confidence(s, setFreq.append(t), database) >= minConfidence:
+        for t in frequentItemsets:
+            if (s != t and confidence(s, t, database) >= minConfidence):
                 rules.append((s,t))
     return rules
 
 
-rules = findRules(freq_sets, database, .2)
-print(rules)
-'''
+rules = findRules(freq_sets, database, .5)
+print("rules",rules)
+
 
 #Produces a visualization of frequent itemsets.
 def visualizeItemsets(frequentItemsets):
@@ -177,17 +189,16 @@ def visualizeRules(rules):
 #Here's a simple test case:
 
 
-database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), 
-    frozenset([1,2]), frozenset([1,5]))
+# database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), 
+#     frozenset([1,2]), frozenset([1,5]))
 
 #database = (frozenset([1,2,3]), frozenset([2,3]), frozenset([4,5]), frozenset([1,2]), frozenset([1,5]))
 
-out = findFrequentItemsets(database, 2)
-print ("Freq Items")
-print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2,3}.
+# out = findFrequentItemsets(database, 2)
+# print ("Freq Items")
+# print(out) #should print something containing sets {1},{2},{3},{5},{1,2}, and {2,3}.
 
 #Should print something like {2} ===> {1,2}, {1} ===> {1,2}, {3} ===> {2,3}, and {2} === {2,3}
-for r in findRules(out, database, 0.4):
-    print ("rules")
-    print(str(r[0])+"  ===>   "+str(r[1]))
-'''
+# for r in findRules(out, database, 0.4):
+#     print ("rules")
+#     print(str(r[0])+"  ===>   "+str(r[1]))
