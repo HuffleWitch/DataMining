@@ -52,6 +52,8 @@ def itemsets(filename):
 # database = [[6], [6],[6], [8], [6,8], [6,8], [6,8], [10, 12, 14], [5,7], [5,7], [5,7], [7,9], [9, 6], [12, 14], [12, 11]]
 
 database = itemsets('tinyAuthors.csv')
+print("Item Sets: \n ")
+print(database)
 
 #this function creates the powerset of the database
 def ItemsfromDatabase(database):
@@ -70,8 +72,8 @@ def ItemsfromDatabase(database):
     return power_set
 
 p1 = ItemsfromDatabase(database)
-# print ("power set")
-# print(p1)
+print("Power Set: \n ")
+print(p1)
 
     
 
@@ -88,6 +90,10 @@ def support(itemset, database):
             count = count + 1
     support = (count/len_set)
     return support
+
+s1 = support(p1, database)
+print("Support: \n ")
+print(s1)
     
 '''
 #Computes the confidence of a given rule.
@@ -120,7 +126,7 @@ def findFrequentItemsets(database, minSupport):
     frequent_sets.sort()
     return frequent_sets
 
-print("frequent_sets")
+print("Frequent Sets: \n ")
 print(findFrequentItemsets(database, .2))
 
 '''
